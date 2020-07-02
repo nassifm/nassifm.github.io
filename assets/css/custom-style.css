@@ -52,6 +52,14 @@ address ul {
     margin: 0;
 }
 
+footer {
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
 #headshot {
     max-height: 362px;
 }
