@@ -26,6 +26,22 @@ body {
     padding-top: 5rem;
 }
 
+.last-screen {
+    min-height: 100vh - 7.5rem;
+    padding-bottom: 7.5rem;
+}
+
+@media (max-width: 19.75rem) {
+    .last-screen {
+        min-height: 100vh - 9rem;
+        padding-bottom: 9rem;
+    }
+}
+
+.line {
+    display: inline-block;
+}
+
 a {
     color: #2b445c;
     font-weight: 600;
@@ -40,7 +56,8 @@ span.invisible {
 }
 
 img.text-icon {
-    height: 1em;
+    max-height: 1rem;
+    max-width: 1rem;
 }
 
 address li {
