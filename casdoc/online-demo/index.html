@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Casdoc</title>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style type="text/css">
+		body {
+			background-color: #f0f0f2;
+			margin: 0;
+			padding: 0;
+			font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+		}
+
+		div {
+			width: 600px;
+			margin: 5em auto;
+			padding: 2em;
+			background-color: #fdfdff;
+			border-radius: 0.5em;
+			box-shadow: 2px 3px 7px 2px rgba(0, 0, 0, 0.02);
+		}
+
+		a:link,
+		a:visited {
+			color: #38488f;
+			text-decoration: none;
+		}
+
+		@media (max-width: 700px) {
+			div {
+				margin: 0 auto;
+				width: auto;
+			}
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+		function sendRequest() {
+			if (document.form.file.files.length == 0) {
+				alert("No file selected");
+				return;
+			}
+			document.form.file.files[0].text().then(
+				content => {
+					var posting = $.post("https://45bdg1xiu7.execute-api.us-east-1.amazonaws.com/v1/transform-to-html", content, data => {
+						var blob = new Blob([data]);
+						var link = document.createElement("a");
+						link.href = window.URL.createObjectURL(blob);
+						link.download="casdoc.html";
+						link.click();
+					}, "text").fail(function () {
+						alert("An error occurred :(");
+					});
+				}
+			)
+			return false;
+		}
+	</script>
+</head>
+
+<body>
+	<div>
+		<h1>Casdoc Transformer</h1>
+		<p>Use the field below to transform annotated Java code examples into Casdoc HTML documents.</p>
+		<form name="form" method="post" enctype="multipart/form-data">
+			<label for="file">Annotated Java File</label>
+			<input type="file" name="file" />
+			<button onclick="return sendRequest();">Transform!</button>
+		</form>
+	</div>
+	<div>
+		<h3 id='annotation-language'>Annotation Language</h3>
+		<p>Users can annotate code examples with custom content using CasDoc&#39;s markup language. Annotations should
+			be added within popover comments. Popover comments begin with <code>/*?</code> and end with <code>*/</code>,
+			ending directly <strong>one line</strong> above the intended code anchor. Within popover comments, users can
+			specify what type of popover they would like to add, to which anchor, and with what content. </p>
+		<h3 id='types-of-popovers'>Types of Popovers</h3>
+		<h5 id='keyword-popovers'>Keyword Popovers</h5>
+		<p>Keyword Popovers are popovers whose anchor exists within one line of code. These are useful for when users
+			want to highlight a single keyword or statement. For example, describing the use of a variable. Anchors to
+			keyword popovers can include non-alphanumeric characters and white spaces, except for the character
+			&quot;:&quot;.</p>
+		<h6 id='annotation-syntax-1'><em>Annotation Syntax</em></h6>
+		<pre><code>Keyword:Anchor
+Content
+</code></pre>
+		<p>adds popover with specified Content to Anchor.</p>
+		<p> <em>Example:</em></p>
+		<pre><code>Keyword:aCards
+aCards is a field that represents cards in a deck.
+</code></pre>
+		<h5 id='block-popovers'>Block Popovers</h5>
+		<p>Block Popovers are popovers whose anchor consists of one entire line or more. These are useful for when users
+			want to highlight larger chunks of code, for example a for-loop.</p>
+		<h6 id='annotation-syntax-2'><em>Annotation Syntax</em></h6>
+		<pre><code>Block:Lines
+Title
+Content
+</code></pre>
+		<p>adds popover with Title and Content to the number of Lines below this comment. The line count should also
+			include lines consisting of only comments.</p>
+		<p> <em>Example:</em></p>
+		<pre><code>Block:4
+For-Loop
+This for-loop iterates through aCards. 
+</code></pre>
+		<h5 id='internal-popovers'>Internal Popovers</h5>
+		<p>Internal Popovers are popovers whose anchor exists in another popover, or <em>not</em> in the Java code. In
+			other words, a popover within a popover. These are useful for when users want to highlight a keyword within
+			a block/pedagogical or even another internal popover.</p>
+		<h6 id='annotation-syntax-3'><em>Annotation Syntax</em></h6>
+		<pre><code>Internal:Anchor
+ParentAnchor
+Content
+</code></pre>
+		<p>adds an internal popover to Anchor within the contents of popover attached to ParentAnchor. This must be
+			placed after the parent popover in the same popover comment.</p>
+		<p> <em>Example:</em></p>
+		<pre><code>Internal:Deck
+aCards
+A deck has 52 cards. 
+</code></pre>
+		<h4 id='anchor'>Anchor</h4>
+		<p>An anchor denotes the piece of code that a popover is attached to. For Block Popovers, this is one line or
+			more. For Keyword and Internal popovers, anchors are strings within one line of code. Keyword and Internal
+			anchors must adhere to the following rules: </p>
+		<ul>
+			<li>If users want to attach a Keyword or Internal popover to the second occurance of an anchor, then the
+				anchor should be changed to <code>Anchor:n</code>, with n representing the n^th occurance. For example,
+			</li>
+
+		</ul>
+		<pre><code>Keyword:Rank:2
+CONTENT
+</code></pre>
+		<p>adds CONTENT to the second occurance of keyword Rank.</p>
+		<ul>
+			<li>They can contain any special character, with the exception of &quot;:&quot;.</li>
+			<li>If the anchor is more than one character, it cannot consist of solely non-alphanumeric characters. For
+				example, <code>&lt;?&gt;</code> is an unacceptable anchor.</li>
+			<li>The anchor cannot be the entire line of code.</li>
+
+		</ul>
+		<h4 id='external-resources'>External Resources </h4>
+		<p>Within each popover, an external resource can be added to give users more information. To specify, syntax
+			<code>URL: link</code> should be added as the <em>last line</em> of a popover annotation. For instance, </p>
+		<pre><code>Keyword:Rank
+This is a rank.
+URL: https://www.w3schools.com/html/html_links.asp
+</code></pre>
+		<p>In the above example, Keyword Popover with anchor <code>Rank</code> has external reference <a
+				href='https://www.w3schools.com/html/html_links.asp' target='_blank'
+				class='url'>https://www.w3schools.com/html/html_links.asp</a>. </p>
+		<h3 id='example-of-popover-comment-with-all-popover-types'>Example of Popover Comment with All Popover Types
+		</h3>
+		<pre><code>/*?
+ * Keyword:aCards
+ * aCards is a field that represents cards in a deck.
+ * 
+ * Internal:deck
+ * aCards
+ * A deck has 52 cards.
+ * 
+ * Block:1
+ * Field
+ * This is a field.
+ */
+</code></pre>
+		<h3 id='adding-popovers-to-comment-content'>Adding Popovers to Comment Content</h3>
+		<p>Popover comments should be added directly above the comment users want to annotate. Keyword and Internal
+			popover annotation is as describe above. If users want to add Block popovers, however, lines should be
+			specified by ranges. </p>
+		<p> <em>Example:</em></p>
+		<pre><code>Block:4-5
+@pre
+The @pre is a special tag used to document precondition
+for executing the constructor as part of a technique
+called Design by Contract.
+</code></pre>
+		<p>adds popover with Title and Content to two lines, starting at line 4 to line 5 beneath this comment.</p>
+		<h3 id='notes'>Notes:</h3>
+		<ul>
+			<li>Popover comments should only contain popover annotations.</li>
+			<li>Anchors can include special characters, except for &#39;:&#39;.</li>
+	</div>
+</body>
+
+</html>
