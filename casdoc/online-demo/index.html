@@ -46,6 +46,8 @@
 				alert("No file selected");
 				return;
 			}
+			document.form.submit.disabled = true;
+			document.form.submit.innerText = "Transforming...";
 			document.form.file.files[0].text().then(
 				content => {
 					var posting = $.post("https://45bdg1xiu7.execute-api.us-east-1.amazonaws.com/v1/transform-to-html", content, data => {
@@ -56,6 +58,9 @@
 						link.click();
 					}, "text").fail(function () {
 						alert("An error occurred :(");
+					}).always(function() {
+						document.form.submit.disabled = false;
+						document.form.submit.innerText = "Transform!";
 					});
 				}
 			)
@@ -71,7 +76,7 @@
 		<form name="form" method="post" enctype="multipart/form-data">
 			<label for="file">Annotated Java File</label>
 			<input type="file" name="file" />
-			<button onclick="return sendRequest();">Transform!</button>
+			<button type="button" name="submit" onclick="sendRequest();">Transform!</button>
 		</form>
 	</div>
 	<div>
