@@ -41,7 +41,79 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
+		function oauthToken() {
+			const ajax = $.ajax;
+			let idToken = null;
+			let refreshToken = null;
+			let expiry = 0;
+
+			this.isConnected = function() {
+				return refreshToken != null;
+			};
+
+			this.connect = function(authCode) {
+				ajax({
+					url: "https://casdoc.auth.us-east-1.amazoncognito.com/oauth2/token",
+					method: "post",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					data: "grant_type=authorization_code&client_id=5171ck1urfa1vpvmgnikg0pvlr&redirect_uri=https%3A%2F%2Fwww.cs.mcgill.ca%2F%7Emnassif%2Fcasdoc%2Fonline-demo%2F&code=" + authCode
+				}).done(function(response) {
+					idToken = response.id_token;
+					refreshToken = response.refresh_token;
+					expiry = new Date().getTime() / 1000 + response.expires_in - 300; // 5-minute buffer
+					document.form.submit.disabled = false;
+					document.form.submit.innerText = "Transform!";
+					document.form.file.disabled = false;
+					document.getElementById("login").style.display = "none";
+					document.getElementById("form").style.display = "";
+				}).fail(function() {
+					document.form.submit.disabled = true;
+					document.form.submit.innerText = "Require Login";
+					document.form.file.disabled = true;
+					document.getElementById("login").style.display = "";
+					document.getElementById("form").style.display = "none";
+					alert("Login error: this could be due to a page refresh.\nPlease log in again.");
+				});
+			};
+
+			this.getToken = function() {
+				if (refreshToken == null) {
+					return Promise.reject("not logged in");
+				}
+				let now = new Date().getTime() / 1000;
+				if (now < expiry) {
+					return Promise.resolve(idToken);
+				}
+				return new Promise((resolve, reject) => {
+					ajax({
+						url: "https://casdoc.auth.us-east-1.amazoncognito.com/oauth2/token",
+						method: "post",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded"
+						},
+						data: "grant_type=refresh_token&client_id=5171ck1urfa1vpvmgnikg0pvlr&refresh_token=" + refreshToken,
+						success: function(response) {
+							idToken = response.id_token;
+							expiry = new Date().getTime() / 1000 + response.expires_in - 300; // 5-minute buffer
+							resolve(idToken);
+						},
+						error: function(error) {
+							reject(error);
+						}
+					});
+				});
+			};
+		}
+
+		const sender = new oauthToken();
+
 		function sendRequest() {
+			if (!sender.isConnected()) {
+				alert("Not signed in");
+				return;
+			}
 			if (document.form.file.files.length == 0) {
 				alert("No file selected");
 				return;
@@ -50,22 +122,46 @@
 			document.form.submit.innerText = "Transforming...";
 			document.form.file.files[0].text().then(
 				content => {
-					var posting = $.post("https://45bdg1xiu7.execute-api.us-east-1.amazonaws.com/v1/transform-to-html", content, data => {
-						var blob = new Blob([data]);
-						var link = document.createElement("a");
-						link.href = window.URL.createObjectURL(blob);
-						link.download="casdoc.html";
-						link.click();
-					}, "text").fail(function () {
-						alert("An error occurred :(");
-					}).always(function() {
-						document.form.submit.disabled = false;
-						document.form.submit.innerText = "Transform!";
+					sender.getToken().then(token => {
+						$.ajax({
+							url: "https://45bdg1xiu7.execute-api.us-east-1.amazonaws.com/v1/transform-to-html",
+							method: "post",
+							headers: {
+								Authorization: token
+							},
+							dataType: "text",
+							data: content
+						}).done(function (data) {
+							var blob = new Blob([data]);
+							var link = document.createElement("a");
+							link.href = window.URL.createObjectURL(blob);
+							link.download = "casdoc.html";
+							link.click();
+						}).fail(function () {
+							alert("An error occurred :(");
+						}).always(function () {
+							document.form.submit.disabled = false;
+							document.form.submit.innerText = "Transform!";
+						});
+					}).catch(error => {
+						document.form.submit.innerText = "Error!";
+						document.getElementById("login").style.display = "";
+						document.getElementById("form").style.display = "none";
+						alert("Authorization error: " + error + "\nTry to log in again");
 					});
 				}
 			)
 			return false;
 		}
+
+		function initTokens() {
+			authCode = new URLSearchParams(window.location.search).get("code");
+			if (authCode) {
+				sender.connect(authCode);
+			}
+		}
+
+		$(initTokens());
 	</script>
 </head>
 
@@ -73,10 +169,13 @@
 	<div>
 		<h1>Casdoc Transformer</h1>
 		<p>Use the field below to transform annotated Java code examples into Casdoc HTML documents.</p>
-		<form name="form" method="post" enctype="multipart/form-data">
+		<p id="login">
+			This service is free, but requires you to create an account. <a href="https://casdoc.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=5171ck1urfa1vpvmgnikg0pvlr&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.cs.mcgill.ca%2F%7Emnassif%2Fcasdoc%2Fonline-demo%2F">You can login/register here.</a>
+		</p>
+		<form id="form" name="form" style="display: none;">
 			<label for="file">Annotated Java File</label>
-			<input type="file" name="file" />
-			<button type="button" name="submit" onclick="sendRequest();">Transform!</button>
+			<input type="file" name="file" disabled />
+			<button type="button" name="submit" onclick="sendRequest();" disabled>Require Login</button>
 		</form>
 	</div>
 	<div>
@@ -193,6 +292,7 @@ called Design by Contract.
 		<ul>
 			<li>Popover comments should only contain popover annotations.</li>
 			<li>Anchors can include special characters, except for &#39;:&#39;.</li>
+		</ul>
 	</div>
 </body>
 
