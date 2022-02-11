@@ -70,6 +70,7 @@
 					document.getElementById("form").style.display = "";
 					document.getElementById("loggedin").style.display = "";
 					document.getElementById("examples").style.display = "";
+					document.getElementById("examplelinks").style.display = "";
 				}).fail(function() {
 					document.form.submit.disabled = true;
 					document.form.submit.innerText = "Require Login";
@@ -78,6 +79,7 @@
 					document.getElementById("form").style.display = "none";
 					document.getElementById("loggedin").style.display = "none";
 					document.getElementById("examples").style.display = "none";
+					document.getElementById("examplelinks").style.display = "none";
 					alert("Login error: this could be due to a page refresh.\nPlease log in again.");
 				});
 			};
@@ -153,6 +155,7 @@
 						document.getElementById("form").style.display = "none";
 						document.getElementById("loggedin").style.display = "none";
 						document.getElementById("examples").style.display = "none";
+						document.getElementById("examplelinks").style.display = "none";
 						alert("Authorization error: " + error + "\nTry to log in again");
 					});
 				}
@@ -190,12 +193,12 @@
 		</form>
 		<p id="examples" style="display: none;">
 			For example, try the following files as starters:
-			<ul>
-				<li><a target="_blank" href="FunctionalProgrammingDemo.java">FunctionalProgrammingDemo.java</a> (see the <a target="_blank" href="FunctionalProgrammingDemo.html">result</a>)</li>
-				<li><a target="_blank" href="JavaReflectionDemo.java">JavaReflectionDemo.java</a> (see the <a target="_blank" href="JavaReflectionDemo.html">result</a>)</li>
-				<li><a target="_blank" href="SqlDatabaseConnectionDemo.java">SqlDatabaseConnectionDemo.java</a> (see the <a target="_blank" href="SqlDatabaseConnectionDemo.html">result</a>)</li>
-			</ul>
 		</p>
+		<ul id="examplelinks" style="display: none;">
+			<li><a target="_blank" href="FunctionalProgrammingDemo.java">FunctionalProgrammingDemo.java</a> (see the <a target="_blank" href="FunctionalProgrammingDemo.html">result</a>)</li>
+			<li><a target="_blank" href="JavaReflectionDemo.java">JavaReflectionDemo.java</a> (see the <a target="_blank" href="JavaReflectionDemo.html">result</a>)</li>
+			<li><a target="_blank" href="SqlDatabaseConnectionDemo.java">SqlDatabaseConnectionDemo.java</a> (see the <a target="_blank" href="SqlDatabaseConnectionDemo.html">result</a>)</li>
+		</ul>
 	</div>
 	<div>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/Tze4M8Vl6ZE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
