@@ -68,12 +68,14 @@
 					document.form.file.disabled = false;
 					document.getElementById("login").style.display = "none";
 					document.getElementById("form").style.display = "";
+					document.getElementById("loggedin").style.display = "";
 				}).fail(function() {
 					document.form.submit.disabled = true;
 					document.form.submit.innerText = "Require Login";
 					document.form.file.disabled = true;
 					document.getElementById("login").style.display = "";
 					document.getElementById("form").style.display = "none";
+					document.getElementById("loggedin").style.display = "none";
 					alert("Login error: this could be due to a page refresh.\nPlease log in again.");
 				});
 			};
@@ -147,6 +149,7 @@
 						document.form.submit.innerText = "Error!";
 						document.getElementById("login").style.display = "";
 						document.getElementById("form").style.display = "none";
+						document.getElementById("loggedin").style.display = "none";
 						alert("Authorization error: " + error + "\nTry to log in again");
 					});
 				}
@@ -168,15 +171,33 @@
 <body>
 	<div>
 		<h1>Casdoc Transformer</h1>
-		<p>Use the field below to transform annotated Java code examples into Casdoc HTML documents.</p>
+		<p>Use the field below to transform annotated Java code examples into Casdoc HTML documents. You can find below a video demonstrating the features of the Casdoc format, and a description of the annotation language for Java files.</p>
 		<p id="login">
-			This service is free, but requires you to create an account. <a href="https://casdoc.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=5171ck1urfa1vpvmgnikg0pvlr&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.cs.mcgill.ca%2F%7Emnassif%2Fcasdoc%2Fonline-demo%2F">You can login/register here.</a>
+			This service is free, but requires you to create an account.<br />
+			<a href="https://casdoc.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=5171ck1urfa1vpvmgnikg0pvlr&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.cs.mcgill.ca%2F%7Emnassif%2Fcasdoc%2Fonline-demo%2F">You can login/register here.</a>
 		</p>
-		<form id="form" name="form" style="display: none;">
-			<label for="file">Annotated Java File</label>
-			<input type="file" name="file" disabled />
-			<button type="button" name="submit" onclick="sendRequest();" disabled>Require Login</button>
-		</form>
+		<p id="loggedin" style="display: none;">
+			Logged in as <span id="useremail"></span><br />
+			<a href="https://casdoc.auth.us-east-1.amazoncognito.com/logout?client_id=5171ck1urfa1vpvmgnikg0pvlr&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.cs.mcgill.ca%2F%7Emnassif%2Fcasdoc%2Fonline-demo%2F">Logout or change account</a> (this will bring you back to the login page.)
+		</p>
+		<div id="form">
+			<form id="form" name="form" style="display: none;">
+				<label for="file">Annotated Java File</label>
+				<input type="file" name="file" disabled />
+				<button type="button" name="submit" onclick="sendRequest();" disabled>Require Login</button>
+			</form>
+			<p>
+				For example, try the following files as starters:
+				<ul>
+					<li><a href="FunctionalProgrammingDemo.java">FunctionalProgrammingDemo.java</a> (see the <a href="FunctionalProgrammingDemo.html">result</a>)</li>
+					<li><a href="JavaReflectionDemo.java">JavaReflectionDemo.java</a> (see the <a href="JavaReflectionDemo.html">result</a>)</li>
+					<li><a href="SqlDatabaseConnectionDemo.java">SqlDatabaseConnectionDemo.java</a> (see the <a href="SqlDatabaseConnectionDemo.html">result</a>)</li>
+				</ul>
+			</p>
+		</div>
+	</div>
+	<div>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/Tze4M8Vl6ZE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 	<div>
 		<h3 id='annotation-language'>Annotation Language</h3>
