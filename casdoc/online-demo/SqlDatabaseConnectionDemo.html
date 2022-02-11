@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Casdoc - SqlDatabaseConnectionDemo</title>
+		<title>Casdoc: SqlDatabaseConnectionDemo</title>
         <style>
 @media (max-width: 767px) {
 	.center-on-large {
@@ -501,11 +501,9 @@ https://amphiluke.github.io/floating-scroll/
 }
         </style>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atom-one-light.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atom-one-light.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet"
-href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -544,7 +542,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
- * Code examples are adapted from: https://docs.oracle.com/javase/tutorial/jdbc/basics/retrieving.html and
+ * Code examples are adapted from:
+ * https://docs.oracle.com/javase/tutorial/jdbc/basics/retrieving.html
+ * and
  * https://docs.oracle.com/javase/tutorial/jdbc/basics/connecting.html
  */
 public class SqlDatabaseConnectionDemo
@@ -568,7 +568,7 @@ public class SqlDatabaseConnectionDemo
     {
         try
         {
-            <span class='pin' id='pinString1' style='display:none;' >&#128204;</span><span class="popoverHover Javadoc String1" href="#" id="popoverString1" data-toggle="popover" data-placement="right" >String</span> connectionUrl = "<span class='pin' id='pinjdbc' style='display:none;' >&#128204;</span><span class="popoverHover jdbc" href="#" id="popoverjdbc" data-toggle="popover"  data-original-title="&#128161; jdbc" data-placement="right">jdbc:mysql://localhost:8008/database1</span>";
+            <span class='pin' id='pinString1' style='display:none;' >&#128204;</span><span class="popoverHover Javadoc String1" href="#" id="popoverString1" data-toggle="popover" data-placement="right" >String</span> <span class='pin' id='pinconnectionUrl' style='display:none;' >&#128204;</span><span class="popoverHover connectionUrl" href="#" id="popoverconnectionUrl" data-toggle="popover"  data-original-title="&#128161; connectionUrl" data-placement="right">connectionUrl</span> = "jdbc:mysql://localhost:8008/database1";
             <span class='pin' id='pinConnection1' style='display:none;' >&#128204;</span><span class="popoverHover Javadoc Connection1" href="#" id="popoverConnection1" data-toggle="popover" data-placement="right" >Connection</span> connection = <span class='pin' id='pincombined6' style='display:none;' >&#128204;</span><span class="popoverHover combined combined6" href="#" id="popovercombined6" data-toggle="popover" data-placement="right">DriverManager</span>.<span class='pin' id='pincombined5' style='display:none;' >&#128204;</span><span class="popoverHover combined combined5" href="#" id="popovercombined5" data-toggle="popover" data-placement="right">getConnection</span>(connectionUrl);
             return <span class='pin' id='pinconnection' style='display:none;' >&#128204;</span><span class="popoverHover Javadoc connection" href="#" id="popoverconnection" data-toggle="popover" data-placement="right" >connection</span>;
         }
@@ -2055,7 +2055,7 @@ extends Wrapper, AutoCloseable</div></div><div class="popover_content" id="popov
 <li>Read values from a table of the database.</li>
 <li>Update some values in a table.</li>
 </ol>
-</div><div class="dialogTitle" id="titlejdbc" style="display:none;">&#128161;jdbc</div><div class="dialog" id="dialogjdbc">
+</div><div class="dialogTitle" id="titleconnectionUrl" style="display:none;">&#128161;connectionUrl</div><div class="dialog" id="dialogconnectionUrl">
   <p><p>The general format of connection URLs is <code>protocol:subprotocol:subname</code>, where</p>
 <ul>
 <li><code>protocol</code> is  <code>jdbc</code>,</li>
@@ -2066,8 +2066,8 @@ extends Wrapper, AutoCloseable</div></div><div class="popover_content" id="popov
 Popular database systems include: <span class='pin' id='pininternal1a' style='display:none;' >&#128204;</span><span class="popoverHover internal1a" href="#" id="popoverinternal1a" data-toggle="popover"  data-original-title="&#128161; MySQL" data-placement="right">MySQL</span> (the database system in this example), <span class='pin' id='pininternal3a' style='display:none;' >&#128204;</span><span class="popoverHover internal3a" href="#" id="popoverinternal3a" data-toggle="popover"  data-original-title="&#128161; SQLite" data-placement="right">SQLite</span>, and <span class='pin' id='pininternal5a' style='display:none;' >&#128204;</span><span class="popoverHover internal5a" href="#" id="popoverinternal5a" data-toggle="popover"  data-original-title="&#128161; PostgreSQL" data-placement="right">PostgreSQL</span>.</p>
 <p>To see details about connection URLs for other common databases,
 see <a href="https://www.codejava.net/java-se/jdbc/jdbc-database-connection-url-for-common-databases">this codejava tutorial</a>.</p>
-</p></div><div class="popover_title" id="popover_titlejdbc" style="display: none">
-<div>&#128161;jdbc</div></div><div class="popover_content" id="popover_content_wrapperjdbc" style="display: none; font-size: 10px;" ><p>The general format of connection URLs is <code>protocol:subprotocol:subname</code>, where</p>
+</p></div><div class="popover_title" id="popover_titleconnectionUrl" style="display: none">
+<div>&#128161;connectionUrl</div></div><div class="popover_content" id="popover_content_wrapperconnectionUrl" style="display: none; font-size: 10px;" ><p>The general format of connection URLs is <code>protocol:subprotocol:subname</code>, where</p>
 <ul>
 <li><code>protocol</code> is  <code>jdbc</code>,</li>
 <li><code>subprotocol</code> is usually the database system name,</li>
@@ -2078,7 +2078,7 @@ Popular database systems include: <span class='pin' id='pininternal1b' style='di
 <p>To see details about connection URLs for other common databases,
 see <a href="https://www.codejava.net/java-se/jdbc/jdbc-database-connection-url-for-common-databases">this codejava tutorial</a>.</p>
 </div></div><div class="dialogTitle" id="titleinternal1" style="display:none;">&#128161;MySQL</div><div class="dialog" id="dialoginternal1">
-  <p><div class="breadcrumbs"><a id="breadcrumbjdbc">jdbc</a></div><p><span class="api-ref-link"><a href="https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-connect-drivermanager.html" target="_blank">Reference</a></span></p><p>The basic format of connecting to a MySQL database is <code>jdbc:mysql://[host][:port]/[database]</code>,
+  <p><div class="breadcrumbs"><a id="breadcrumbconnectionUrl">connectionUrl</a></div><p><span class="api-ref-link"><a href="https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-connect-drivermanager.html" target="_blank">Reference</a></span></p><p>The basic format of connecting to a MySQL database is <code>jdbc:mysql://[host][:port]/[database]</code>,
 whereby <code>host</code> represents an IP address or host name on which the server is running.
 In our code example, the host is <code>localhost</code>, <code>8008</code> is the port number and <code>database1</code> is the database name.</p>
 </p></div><div class="popover_title" id="popover_titleinternal1" style="display: none">
@@ -2086,7 +2086,7 @@ In our code example, the host is <code>localhost</code>, <code>8008</code> is th
 whereby <code>host</code> represents an IP address or host name on which the server is running.
 In our code example, the host is <code>localhost</code>, <code>8008</code> is the port number and <code>database1</code> is the database name.</p>
 </div><div class="dialogTitle" id="titleinternal3" style="display:none;">&#128161;SQLite</div><div class="dialog" id="dialoginternal3">
-  <p><div class="breadcrumbs"><a id="breadcrumbjdbc">jdbc</a></div><p><span class="api-ref-link"><a href="https://www.sqlitetutorial.net/sqlite-java/" target="_blank">Reference</a></span></p><p>The basic format of connecting to a SQLite database is <code>jdbc:sqlite:[database_file_path]</code>,
+  <p><div class="breadcrumbs"><a id="breadcrumbconnectionUrl">connectionUrl</a></div><p><span class="api-ref-link"><a href="https://www.sqlitetutorial.net/sqlite-java/" target="_blank">Reference</a></span></p><p>The basic format of connecting to a SQLite database is <code>jdbc:sqlite:[database_file_path]</code>,
 whereby <code>database_file_path</code> represents a relative or absolute path of the target SQLite database.
 For example, <code>jdbc:sqlite:c:/User/Documents/database1.db</code> connects to database <code>database1.db</code> specified by an absolute path.</p>
 </p></div><div class="popover_title" id="popover_titleinternal3" style="display: none">
@@ -2094,7 +2094,7 @@ For example, <code>jdbc:sqlite:c:/User/Documents/database1.db</code> connects to
 whereby <code>database_file_path</code> represents a relative or absolute path of the target SQLite database.
 For example, <code>jdbc:sqlite:c:/User/Documents/database1.db</code> connects to database <code>database1.db</code> specified by an absolute path.</p>
 </div><div class="dialogTitle" id="titleinternal5" style="display:none;">&#128161;PostgreSQL</div><div class="dialog" id="dialoginternal5">
-  <p><div class="breadcrumbs"><a id="breadcrumbjdbc">jdbc</a></div><p><span class="api-ref-link"><a href="https://jdbc.postgresql.org/documentation/head/connect.html" target="_blank">Reference</a></span></p><p>The basic format of connecting to a PostgreSQL database is <code>jdbc:postgresql://[host][:port]/[database]</code>,
+  <p><div class="breadcrumbs"><a id="breadcrumbconnectionUrl">connectionUrl</a></div><p><span class="api-ref-link"><a href="https://jdbc.postgresql.org/documentation/head/connect.html" target="_blank">Reference</a></span></p><p>The basic format of connecting to a PostgreSQL database is <code>jdbc:postgresql://[host][:port]/[database]</code>,
 whereby <code>host</code> represents an IP address or host name on which the server is running (optional, defaults to <code>localhost</code>),
 <code>port</code> is the port number (optional, defaults to <code>5432</code>), and <code>database</code> is the database name.
 For example, <code>jdbc:postgresql://localhost/ProductDB</code> connects to the <code>ProductDB</code> on PostgreSQL server on the host <code>localhost</code>.</p>
