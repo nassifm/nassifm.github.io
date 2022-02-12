@@ -71,6 +71,19 @@
 					document.getElementById("loggedin").style.display = "";
 					document.getElementById("examples").style.display = "";
 					document.getElementById("examplelinks").style.display = "";
+				}).done(function(response) {
+					var access = response.access_token;
+					ajax({
+						url: "https://casdoc.auth.us-east-1.amazoncognito.com/oauth2/userInfo",
+						method: "get",
+						headers: {
+							Authorization: "Bearer " + access
+						}
+					}).done(function(info) {
+						document.getElementById("useremail").textContent = info.email;
+					}).fail(function() {
+						document.getElementById("useremail").textContent = "[can't retrieve email, you are still logged in]"
+					});
 				}).fail(function() {
 					document.form.submit.disabled = true;
 					document.form.submit.innerText = "Require Login";
