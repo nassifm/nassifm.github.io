@@ -1,0 +1,239 @@
+/*
+ * General
+ */
+
+pre {
+	tab-size: 4;
+}
+
+#casdoc pre {
+	line-height: 1.8;
+}
+
+/*
+ * Anchors
+ */
+
+icon {
+	display: inline-block;
+	padding: 0;
+	border: 0;
+	margin: 0 0.2rem;
+	width: 1.2rem;
+	height: 1.2rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+icon.custom {
+	background-image: url(custom-icon.png);
+}
+
+icon.javadoc {
+	background-image: url(java-icon.svg);
+}
+
+.marker {
+	cursor: pointer;
+}
+
+.anchor.inline>.marker.custom {
+	border-bottom: 2px dotted #00a3cc;
+}
+
+.anchor.block {
+	display: inline-block;
+	padding-right: 1.5rem;
+	position: relative;
+}
+
+.anchor.block>.hover-zone {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 0.5rem;
+}
+
+.anchor.block>.hover-zone>.marker {
+	width: 100%;
+	height: 100%;
+	border: 2px solid #95c0ca;
+	border-left: 0;
+}
+
+.codeline, .ann-long {
+	transition: background-color 0.25s linear;
+}
+
+.anchor {
+	transition: background-color 0.15s linear;
+}
+
+.highlight {
+	background-color: #e4e41d !important;
+}
+
+.anchor.inline > .marker.pinned {
+	font-style: italic;
+	font-weight: bolder;
+}
+
+.anchor.block > .hover-zone > .marker.pinned {
+	border-width: 3px;
+}
+
+/*
+ * Popovers
+ */
+
+.popover {
+	max-width: 25rem;
+	width: max-content;
+}
+
+.popover-header {
+	padding-left: 0;
+}
+
+.popover-body {
+	max-height: 15rem;
+	overflow-y: scroll;
+}
+
+/*
+ * Dialogs
+ */
+
+.ui-dialog .ui-dialog-titlebar-close {
+	border-color: transparent;
+	background-color: transparent;
+	outline: transparent;
+	top: auto;
+	width: auto;
+	height: auto;
+	margin: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover {
+	text-shadow: 0 0 3px #FF0000;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	background: #f7f7f7;
+	padding-left: 0;
+	font-size: 1rem;
+}
+
+.ui-dialog .pop-header {
+	font-size: 1rem;
+	font-weight: bolder;
+}
+
+.ui-dialog .ui-dialog-content {
+	box-sizing: border-box;
+}
+
+.ui-dialog .member-signature,
+.ui-dialog .type-signature {
+	font-family: monospace;
+	margin-bottom: 0.5rem;
+}
+
+.ui-dialog .references {
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
+}
+
+.ui-dialog .external-reference {
+	font-size: smaller;
+	font-weight: bolder;
+	border-radius: 0.25rem;
+	color: white;
+	background-color: #015692;
+	padding: 0 0.25rem;
+	text-decoration: none;
+	display: inline-block;
+	margin-right: 0.25rem;
+}
+
+.ui-dialog .external-reference::after {
+	content: attr(title);
+}
+
+.ui-dialog .backlink-sep {
+	margin-bottom: 0.25rem;
+}
+
+.ui-dialog .backlink-title {
+	font-style: italic;
+	font-size: smaller;
+	margin-right: 0.5rem;
+}
+
+.ui-dialog .backlink {
+	font-size: smaller;
+	font-weight: bolder;
+	border-radius: 0.25rem;
+	color: white;
+	background-color: #01926e;
+	padding: 0 0.25rem;
+	text-decoration: none;
+	display: inline-block;
+	margin-right: 0.25rem;
+	cursor: pointer;
+}
+
+.ui-dialog {
+	font-size: 0.875rem;
+}
+
+.ui-dialog .ui-resizable-n,
+.ui-dialog .ui-resizable-s {
+	height: 0.5rem;
+}
+
+.ui-dialog .ui-resizable-w,
+.ui-dialog .ui-resizable-e {
+	width: 0.5rem;
+}
+
+.ui-dialog .ui-resizable-nw,
+.ui-dialog .ui-resizable-sw,
+.ui-dialog .ui-resizable-ne,
+.ui-dialog .ui-resizable-se {
+	height: 0.75rem;
+	width: 0.75rem;
+}
+
+.ui-dialog {
+	scroll-margin-top: 4rem;
+}
+
+/*
+ * Search bar
+ */
+
+.dropdown-menu {
+	width: 100%;
+	font-size: smaller;
+}
+
+.dropdown-item {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	max-height: 5.1rem;
+}
+
+.dropdown-item .res-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: bolder;
+	white-space: nowrap;
+	padding-right: 0.5rem;
+}
+
+.res-highlight {
+	background-color: #e4e41d;
+}
