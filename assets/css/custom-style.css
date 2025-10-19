@@ -61,9 +61,10 @@ span.invisible {
 }
 
 img.text-icon {
-    height: 1rem;
-    width: 1rem;
+    height: 1.2rem;
+    width: 1.2rem;
     object-fit: contain;
+    vertical-align: text-bottom;
 }
 
 address li {
